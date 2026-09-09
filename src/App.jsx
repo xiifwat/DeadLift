@@ -52,7 +52,7 @@ function App() {
         </div>
       </header>
       <main>
-        <TaskForm onSubmit={(data) => addTask(user.uid, data)} />
+        <TaskForm onSubmit={(data) => addTask(user.uid, data)} allTags={allTags} />
         <TaskFilters
           allTags={allTags}
           searchQuery={searchQuery}
@@ -63,6 +63,7 @@ function App() {
         <TaskList
           tasks={tasks}
           uid={user.uid}
+          allTags={allTags}
           searchQuery={searchQuery}
           selectedTags={selectedTags}
           onEdit={(taskId, data) => editTask(user.uid, taskId, data)}

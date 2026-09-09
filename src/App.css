@@ -49,6 +49,50 @@
   font-size: 0.85rem;
 }
 
+.tag-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.selected-tags,
+.existing-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.existing-tags-label {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.tag-chip.removable {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.tag-chip.removable button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  padding: 0;
+  line-height: 1;
+}
+
+button.tag-chip.pick {
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+button.tag-chip.pick:hover {
+  opacity: 1;
+}
+
 .subtask-editor {
   display: flex;
   flex-direction: column;

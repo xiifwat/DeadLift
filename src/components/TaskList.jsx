@@ -17,7 +17,7 @@ function matchesTags(task, selectedTags) {
   return selectedTags.some((tag) => task.tags?.includes(tag))
 }
 
-export default function TaskList({ tasks, uid, onEdit, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin, searchQuery, selectedTags }) {
+export default function TaskList({ tasks, uid, allTags, onEdit, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin, searchQuery, selectedTags }) {
   const [undo, setUndo] = useState(null) // { taskId, title, timeoutId }
   const [, setTick] = useState(0)
 
@@ -70,6 +70,7 @@ export default function TaskList({ tasks, uid, onEdit, onToggleSubtask, onReorde
           <TaskItem
             key={task.id}
             task={task}
+            allTags={allTags}
             onEdit={onEdit}
             onDelete={handleDelete}
             onToggleSubtask={onToggleSubtask}

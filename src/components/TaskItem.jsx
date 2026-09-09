@@ -9,7 +9,7 @@ function formatDate(endDate) {
   return d.toLocaleDateString()
 }
 
-export default function TaskItem({ task, onEdit, onDelete, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin }) {
+export default function TaskItem({ task, allTags, onEdit, onDelete, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin }) {
   const [editing, setEditing] = useState(false)
   const hasSubtasks = task.subtasks?.length > 0
   const doneCount = task.subtasks?.filter((s) => s.done).length ?? 0
@@ -20,6 +20,7 @@ export default function TaskItem({ task, onEdit, onDelete, onToggleSubtask, onRe
       <li className="task-item">
         <TaskForm
           initialTask={task}
+          allTags={allTags}
           onCancel={() => setEditing(false)}
           onSubmit={async (data) => {
             await onEdit(task.id, data)
