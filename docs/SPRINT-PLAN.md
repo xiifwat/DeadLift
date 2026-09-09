@@ -23,5 +23,12 @@ Goal: find tasks faster as the list grows.
 - Deferred: dark mode, reminders, recurring tasks — future sprint
 Demo: tag a few tasks, filter by tag, search by title/details, confirm both combine.
 
+## Sprint 4 — Professional UI + PWA
+Goal: app looks polished, installable on desktop/mobile as a PWA.
+- UI redesign: consistent visual system (color, type, spacing) over current functional-only styling — mockup first, code after sign-off
+- PWA: manifest, icons, service worker (`vite-plugin-pwa`), installable + basic offline shell
+- Both in one sprint — PWA conversion is small for this stack, no conflict with existing Firebase Auth popup flow
+Demo: install app from browser (desktop + mobile), confirm it opens standalone; visual review against mockup.
+
 ## Retro notes
 (filled in after each sprint)

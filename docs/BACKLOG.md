@@ -49,6 +49,14 @@ Status legend: `TODO` `IN PROGRESS` `DONE`
 - **US-4.4** Deadline reminders/notifications. `TODO` (not in Sprint 3)
 - **US-4.5** Dark mode. `TODO` (not in Sprint 3)
 
+## Epic 5: Professional UI + PWA
+- **US-5.1** As a user, the app looks like a polished product, not a functional prototype. `TODO`
+  - AC: Consistent color/type/spacing system, applied across all existing screens (sign-in, task list, forms).
+  - AC: Mockup reviewed and signed off before implementation.
+- **US-5.2** As a user, I can install the app on desktop or mobile and open it standalone (PWA). `TODO`
+  - AC: Manifest + icons + service worker via `vite-plugin-pwa`.
+  - AC: Installable from Chrome (desktop + Android) and addable to home screen on iOS Safari.
+
 ## Definition of Ready (DoR)
 - Story has clear acceptance criteria
 - No unresolved dependency on another in-progress story
