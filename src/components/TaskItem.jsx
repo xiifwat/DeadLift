@@ -57,7 +57,7 @@ export default function TaskItem({ task, allTags, onEdit, onDelete, onToggleSubt
           {task.completed ? (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--neutral)">
               <circle cx="12" cy="12" r="12" />
-              <path d="M8 12l3 3 5-6" stroke="var(--surface)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M8 12l3 3 5-6" stroke="var(--on-accent)" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           ) : (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--neutral)" strokeWidth="1.5"><circle cx="12" cy="12" r="10.5" /></svg>

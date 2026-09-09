@@ -10,14 +10,17 @@ import {
   togglePin,
 } from './lib/tasks'
 import { seedWorkTasks } from './lib/bulkImport'
+import { useTheme } from './hooks/useTheme'
 import SignIn from './components/SignIn'
 import TaskForm from './components/TaskForm'
 import TaskFilters from './components/TaskFilters'
 import TaskList from './components/TaskList'
+import ThemeToggle from './components/ThemeToggle'
 import './App.css'
 
 function App() {
   const { user, loading, signOut } = useAuth()
+  const { theme, toggleTheme } = useTheme()
   const [tasks, setTasks] = useState([])
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -50,7 +53,7 @@ function App() {
   }
 
   if (loading) return null
-  if (!user) return <SignIn />
+  if (!user) return <SignIn theme={theme} onToggleTheme={toggleTheme} />
 
   return (
     <div className="app">
@@ -94,6 +97,8 @@ function App() {
                 </svg>
               </button>
             )}
+
+            <ThemeToggle theme={theme} onToggle={toggleTheme} />
 
             <div className="header-divider" />
             <div className="avatar">

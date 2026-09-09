@@ -59,6 +59,10 @@ Status legend: `TODO` `IN PROGRESS` `DONE`
   - AC: Manifest + icons + service worker via `vite-plugin-pwa`.
   - AC: Installable from Chrome (desktop + Android) and addable to home screen on iOS Safari.
   - Built: manifest + 4 icon sizes (`scripts/make-icons.mjs` generates them from the barbell mark) + generateSW service worker, no runtimeCaching for Firebase (stays network-only). Manifest/sw.js/icons verified reachable and well-formed; SW *registration* couldn't be verified in my sandboxed preview pane (nested-iframe limitation, not app-specific) — needs a real Chrome tab or device to confirm install prompt/add-to-home-screen.
+- **US-5.3** As a user, I can switch between dark and light themes, and my choice is remembered on this device. `DONE`
+  - AC: Default is dark. Choice persists via localStorage (per-device/browser, not synced to account).
+  - Built: `src/hooks/useTheme.js` (applies `data-theme` on `<html>`, persists to localStorage), `ThemeToggle.jsx` (sun/moon icon button in the app header and on the sign-in screen), light palette under `:root[data-theme='light']` in App.css.
+  - Verified: toggled in browser, confirmed persists across reload, checked both sign-in and pre-login states.
 
 ## Definition of Ready (DoR)
 - Story has clear acceptance criteria

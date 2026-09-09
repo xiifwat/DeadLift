@@ -1,17 +1,19 @@
 import { useAuth } from '../context/AuthContext'
+import ThemeToggle from './ThemeToggle'
 
-export default function SignIn() {
+export default function SignIn({ theme, onToggleTheme }) {
   const { signInWithGoogle } = useAuth()
 
   return (
     <div className="signin-screen">
+      <div className="signin-theme-toggle">
+        <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+      </div>
       <div className="signin-card">
-        <svg width="52" height="52" viewBox="0 0 28 28" fill="none">
-          <rect x="2" y="12" width="24" height="4" rx="1.5" stroke="var(--accent)" strokeWidth="2" />
-          <rect x="5" y="7" width="4" height="14" rx="1" fill="var(--accent)" />
-          <rect x="19" y="7" width="4" height="14" rx="1" fill="var(--accent)" />
-          <rect x="1" y="9" width="2.5" height="10" rx="1" fill="var(--accent)" />
-          <rect x="24.5" y="9" width="2.5" height="10" rx="1" fill="var(--accent)" />
+        <svg width="34" height="34" viewBox="0 0 28 28" fill="none">
+          <rect x="2" y="12.5" width="24" height="3" rx="1.5" fill="var(--accent)" />
+          <rect x="5.5" y="8" width="3.5" height="12" rx="1" fill="var(--accent)" />
+          <rect x="19" y="8" width="3.5" height="12" rx="1" fill="var(--accent)" />
         </svg>
         <div>
           <h1>Deadlift</h1>
