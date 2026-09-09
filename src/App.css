@@ -696,6 +696,13 @@ button.tag-chip.filter.active {
 .subtask-progress-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.subtask-progress-info {
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -727,9 +734,9 @@ button.tag-chip.filter.active {
 }
 
 .subtask-checklist li {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 9px;
 }
 
 .subtask-checklist li label {
@@ -746,6 +753,10 @@ button.tag-chip.filter.active {
 }
 
 .drag-handle {
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: grab;
   color: var(--text-tertiary);
   user-select: none;
