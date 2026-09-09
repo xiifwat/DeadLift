@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from './context/AuthContext'
-import { subscribeToTasks, addTask } from './lib/tasks'
+import {
+  subscribeToTasks,
+  addTask,
+  editTask,
+  toggleSubtask,
+  reorderSubtasks,
+  toggleTaskCompleted,
+} from './lib/tasks'
 import SignIn from './components/SignIn'
 import TaskForm from './components/TaskForm'
 import TaskList from './components/TaskList'
@@ -29,7 +36,14 @@ function App() {
       </header>
       <main>
         <TaskForm onSubmit={(data) => addTask(user.uid, data)} />
-        <TaskList tasks={tasks} />
+        <TaskList
+          tasks={tasks}
+          uid={user.uid}
+          onEdit={(taskId, data) => editTask(user.uid, taskId, data)}
+          onToggleSubtask={(task, subtaskId) => toggleSubtask(user.uid, task, subtaskId)}
+          onReorderSubtasks={(taskId, subtasks) => reorderSubtasks(user.uid, taskId, subtasks)}
+          onToggleCompleted={(task) => toggleTaskCompleted(user.uid, task)}
+        />
       </main>
     </div>
   )

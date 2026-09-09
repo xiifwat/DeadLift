@@ -71,6 +71,11 @@
   margin: 0;
 }
 
+.task-form-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
 button.primary {
   align-self: flex-start;
 }
@@ -134,14 +139,52 @@ button.primary {
   opacity: 0.75;
 }
 
-.task-subtasks ul {
-  margin: 0.3rem 0 0;
-  padding-left: 1.1rem;
+.task-complete-dot {
+  cursor: default;
+  opacity: 0.7;
 }
 
-.task-subtasks li.done {
+.subtask-checklist {
+  list-style: none;
+  margin: 0.3rem 0 0;
+  padding: 0;
+}
+
+.subtask-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.15rem 0;
+}
+
+.subtask-checklist li label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.subtask-checklist li.done label {
   text-decoration: line-through;
   opacity: 0.6;
+}
+
+.drag-handle {
+  cursor: grab;
+  opacity: 0.5;
+  user-select: none;
+  touch-action: none;
+}
+
+.undo-toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  font-size: 0.85rem;
 }
 
 .empty-state {

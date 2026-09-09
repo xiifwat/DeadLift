@@ -17,11 +17,14 @@ Status legend: `TODO` `IN PROGRESS` `DONE`
   - AC: Subtasks can be reordered via drag-and-drop; new order persists (array order in the Firestore doc — see ADR-0001).
 - **US-2.2** As a user, I can view my task list, with each task's subtasks and completion progress (e.g. 2/5 done). `DONE`
   - Verified by user 2026-09-09.
-- **US-2.3** As a user, I can edit an existing task (parent fields and its subtasks). `TODO`
-- **US-2.4** As a user, I can delete a task (soft delete + undo toast) or an individual subtask. `TODO`
-- **US-2.5** As a user, checking off all subtasks automatically marks the parent task complete; unchecking any subtask reopens it. `TODO`
+- **US-2.3** As a user, I can edit an existing task (parent fields and its subtasks). `IN PROGRESS`
+  - Built: `TaskForm` now doubles as edit form (`initialTask` prop), preserves subtask ids/done state. Subtask drag-reorder wired via `@dnd-kit` (`SubtaskList.jsx`). Needs user check.
+- **US-2.4** As a user, I can delete a task (soft delete + undo toast) or an individual subtask. `IN PROGRESS`
+  - Built: soft delete via `deletedAt`, 6s undo toast in `TaskList.jsx`. Individual-subtask delete covered by removing its row in edit mode (not a standalone delete-while-viewing action) — flagging in case that's not what you meant.
+- **US-2.5** As a user, checking off all subtasks automatically marks the parent task complete; unchecking any subtask reopens it. `IN PROGRESS`
   - AC: A task with zero subtasks is marked complete/incomplete directly (manual checkbox).
   - AC: A task with subtasks cannot be manually marked complete — completion is derived from subtask state, not set directly.
+  - Built: `toggleSubtask` re-derives `completed`; UI shows a checkbox only for zero-subtask tasks, a read-only dot otherwise.
 
 ## Epic 3: Gross Priority & Sorting
 - **US-3.1** As a user, my tasks are automatically ranked by gross priority (task priority + urgency from deadline). `TODO`

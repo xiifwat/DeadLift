@@ -2,12 +2,25 @@ import { useState } from 'react'
 
 const emptySubtask = () => ({ key: crypto.randomUUID(), title: '' })
 
-export default function TaskForm({ onSubmit }) {
-  const [title, setTitle] = useState('')
-  const [details, setDetails] = useState('')
-  const [endDate, setEndDate] = useState('')
-  const [taskPriority, setTaskPriority] = useState(5)
-  const [subtasks, setSubtasks] = useState([])
+function toDateInputValue(endDate) {
+  if (!endDate) return ''
+  const d = endDate.toDate ? endDate.toDate() : new Date(endDate)
+  return d.toISOString().slice(0, 10)
+}
+
+/**
+ * Add/edit form. Pass `initialTask` to edit in place (pre-fills fields, preserves
+ * subtask ids/done state); omit it to add a new task.
+ */
+export default function TaskForm({ onSubmit, onCancel, initialTask }) {
+  const isEdit = !!initialTask
+  const [title, setTitle] = useState(initialTask?.title ?? '')
+  const [details, setDetails] = useState(initialTask?.details ?? '')
+  const [endDate, setEndDate] = useState(toDateInputValue(initialTask?.endDate))
+  const [taskPriority, setTaskPriority] = useState(initialTask?.taskPriority ?? 5)
+  const [subtasks, setSubtasks] = useState(
+    () => initialTask?.subtasks?.map((s) => ({ key: s.id, ...s })) ?? [],
+  )
   const [error, setError] = useState('')
 
   function updateSubtask(key, value) {
@@ -32,13 +45,15 @@ export default function TaskForm({ onSubmit }) {
       details,
       endDate,
       taskPriority: priorityNum,
-      subtasks: subtasks.map((s) => s.title),
+      subtasks: subtasks.map((s) => ({ id: s.id, title: s.title, done: s.done })),
     })
-    setTitle('')
-    setDetails('')
-    setEndDate('')
-    setTaskPriority(5)
-    setSubtasks([])
+    if (!isEdit) {
+      setTitle('')
+      setDetails('')
+      setEndDate('')
+      setTaskPriority(5)
+      setSubtasks([])
+    }
   }
 
   return (
@@ -92,7 +107,10 @@ export default function TaskForm({ onSubmit }) {
       </div>
 
       {error && <p className="form-error">{error}</p>}
-      <button type="submit" className="primary">Add task</button>
+      <div className="task-form-actions">
+        <button type="submit" className="primary">{isEdit ? 'Save changes' : 'Add task'}</button>
+        {isEdit && <button type="button" onClick={onCancel}>Cancel</button>}
+      </div>
     </form>
   )
 }
