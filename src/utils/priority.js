@@ -3,9 +3,14 @@
 
 const HOUR_MS = 3600000
 
+const DAY_MS = 86400000
+
 function toDate(endDate) {
   if (!endDate) return null
-  return endDate.toDate ? endDate.toDate() : new Date(endDate)
+  const d = endDate.toDate ? endDate.toDate() : new Date(endDate)
+  // Stored end dates are date-only (midnight) — treat the deadline as end-of-day,
+  // so a task due "today" isn't marked overdue the instant that day starts.
+  return new Date(d.getTime() + DAY_MS - 1)
 }
 
 function clamp(n, min, max) {

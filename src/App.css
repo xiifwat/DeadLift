@@ -659,6 +659,27 @@ button.tag-chip.filter.active {
   color: var(--text-secondary);
 }
 
+.task-priority.priority-mid {
+  color: var(--accent);
+  border-color: color-mix(in oklch, var(--accent) 50%, var(--border));
+}
+
+.task-priority.priority-high {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+}
+
+/* High-priority tasks get a stronger row treatment so they stand out at a glance */
+.task-item.row.priority-high {
+  background: color-mix(in oklch, var(--accent) 7%, var(--surface));
+}
+
+.task-item.row.priority-high .task-title {
+  font-weight: 700;
+}
+
 .task-actions-row {
   display: flex;
   gap: 2px;

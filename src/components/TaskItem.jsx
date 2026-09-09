@@ -9,12 +9,19 @@ function formatDate(endDate) {
   return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
 }
 
+function priorityTier(p) {
+  if (p >= 8) return 'high'
+  if (p >= 5) return 'mid'
+  return 'low'
+}
+
 export default function TaskItem({ task, allTags, onEdit, onDelete, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin }) {
   const [editing, setEditing] = useState(false)
   const hasSubtasks = task.subtasks?.length > 0
   const doneCount = task.subtasks?.filter((s) => s.done).length ?? 0
   const urgency = urgencyLevel(task.endDate)
   const dateLabel = urgency === 'overdue' ? `Overdue · ${formatDate(task.endDate)}` : `Due ${formatDate(task.endDate)}`
+  const priority = priorityTier(task.taskPriority)
 
   if (editing) {
     return (
@@ -35,7 +42,7 @@ export default function TaskItem({ task, allTags, onEdit, onDelete, onToggleSubt
   }
 
   return (
-    <li className={`task-item row urgency-${urgency}${task.completed ? ' completed' : ''}${task.pinned ? ' pinned' : ''}`}>
+    <li className={`task-item row urgency-${urgency} priority-${priority}${task.completed ? ' completed' : ''}${task.pinned ? ' pinned' : ''}`}>
       <div className="urgency-band" />
 
       {hasSubtasks ? (
@@ -122,7 +129,7 @@ export default function TaskItem({ task, allTags, onEdit, onDelete, onToggleSubt
         )}
 
         <div className="task-meta-row">
-          <span className="task-priority">Priority {task.taskPriority}</span>
+          <span className={`task-priority priority-${priority}`}>Priority {task.taskPriority}</span>
           {task.tags?.map((tag) => (
             <span className="tag-chip" key={tag}>{tag}</span>
           ))}
