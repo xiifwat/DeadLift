@@ -9,12 +9,17 @@ Status legend: `TODO` `IN PROGRESS` `DONE`
 - **US-1.2** As a user, I can sign out. `TODO`
 
 ## Epic 2: Core Task CRUD
-- **US-2.1** As a user, I can add a task with title, details, end date, and priority (1-10). `TODO`
-  - AC: All fields required except details. Priority restricted to 1-10 int.
-- **US-2.2** As a user, I can view my task list. `TODO`
-- **US-2.3** As a user, I can edit an existing task. `TODO`
-- **US-2.4** As a user, I can delete a task (soft delete + undo toast). `TODO`
-- **US-2.5** As a user, I can mark a task complete. `TODO`
+- **US-2.1** As a user, I can add a task with title, details, end date, and priority (1-10), and break it into subtasks. `TODO`
+  - AC: Title, end date, priority required on the parent task; details optional.
+  - AC: Priority (1-10) is set only on the parent task — subtasks have no priority field of their own.
+  - AC: Parent task can have zero or more subtasks (title only, no separate end date/priority).
+  - AC: Subtasks can be added/removed/checked off independently after creation.
+- **US-2.2** As a user, I can view my task list, with each task's subtasks and completion progress (e.g. 2/5 done). `TODO`
+- **US-2.3** As a user, I can edit an existing task (parent fields and its subtasks). `TODO`
+- **US-2.4** As a user, I can delete a task (soft delete + undo toast) or an individual subtask. `TODO`
+- **US-2.5** As a user, checking off all subtasks automatically marks the parent task complete; unchecking any subtask reopens it. `TODO`
+  - AC: A task with zero subtasks is marked complete/incomplete directly (manual checkbox).
+  - AC: A task with subtasks cannot be manually marked complete — completion is derived from subtask state, not set directly.
 
 ## Epic 3: Gross Priority & Sorting
 - **US-3.1** As a user, my tasks are automatically ranked by gross priority (task priority + urgency from deadline). `TODO`

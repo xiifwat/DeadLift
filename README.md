@@ -1,16 +1,14 @@
-# React + Vite
+# Deadlift
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Todo app that auto-ranks tasks by gross priority — a mix of user-given priority (1-10)
+and urgency from the deadline. The closer the deadline, the more it lifts a task's rank.
 
-Currently, two official plugins are available:
+Stack: React (Vite) + Firebase Auth (Google OAuth) + Firestore. See [docs/adr](docs/adr)
+for architecture decisions and [docs/BACKLOG.md](docs/BACKLOG.md) for the product backlog.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Dev
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm install
+npm run dev
+```

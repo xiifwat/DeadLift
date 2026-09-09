@@ -11,7 +11,20 @@ are per-user. Small team (solo + AI pairing), want minimal ops overhead.
 ## Decision
 - **Frontend**: React (Vite scaffold, not CRA — faster dev server, smaller config surface).
 - **Auth**: Firebase Auth, Google OAuth provider. No custom password handling needed.
-- **Database**: Firestore. Doc shape: `users/{uid}/tasks/{taskId}`.
+- **Database**: Firestore. Doc shape: `users/{uid}/tasks/{taskId}`, with subtasks embedded
+  as an array on the parent doc (not a subcollection — small, always fetched together with
+  the parent, no need for independent querying):
+  ```js
+  {
+    title, details, endDate, taskPriority,   // priority lives only here, on the parent
+    pinned, createdAt,
+    subtasks: [{ id, title, done: boolean }],
+    completed: boolean   // derived: true if subtasks.length === 0 ? manual : all(subtasks.done)
+  }
+  ```
+  `completed` is still stored (not computed at read time) so it can be queried/filtered
+  directly, but it's only ever written by the subtask-completion logic when the task has
+  subtasks — never set directly by the user in that case.
 - **Hosting**: Firebase Hosting.
 - **Gross priority**: computed client-side at render time from stored `taskPriority` +
   `endDate`, not persisted as a field — avoids staleness, no scheduled recompute job needed
