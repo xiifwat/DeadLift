@@ -105,13 +105,13 @@ export default function TaskItem({ task, allTags, onEdit, onDelete, onToggleSubt
         {hasSubtasks && (
           <div className="task-subtasks">
             <div className="subtask-progress-row">
+              <span className="subtask-progress">{doneCount} of {task.subtasks.length} subtasks</span>
               <div className="subtask-progress-bar">
                 <div
                   className="subtask-progress-bar-fill"
                   style={{ width: `${(doneCount / task.subtasks.length) * 100}%` }}
                 />
               </div>
-              <span className="subtask-progress">{doneCount} of {task.subtasks.length} subtasks</span>
             </div>
             <SubtaskList
               subtasks={task.subtasks}
