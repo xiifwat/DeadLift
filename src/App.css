@@ -16,7 +16,7 @@
   --yellow: #e3c257;
   --green: #8bbf82;
   --neutral: #4a413b;
-  --font-body: 'Public Sans', system-ui, sans-serif;
+  --font-body: 'Montserrat', system-ui, sans-serif;
 }
 
 /* Light theme — default is dark (bare :root above); this overrides when the user
