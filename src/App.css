@@ -529,6 +529,7 @@ button.tag-chip.filter.active {
 .task-item-main {
   display: flex;
   align-items: baseline;
+  justify-content: flex-start;
   gap: 10px;
 }
 
@@ -536,6 +537,7 @@ button.tag-chip.filter.active {
   font-size: 15px;
   font-weight: 600;
   flex-grow: 1;
+  text-align: left;
   color: var(--text);
 }
 
@@ -595,10 +597,10 @@ button.tag-chip.filter.active {
   color: var(--text-secondary);
 }
 
-.task-item-actions {
+.task-actions-row {
   display: flex;
   gap: 2px;
-  align-items: flex-start;
+  justify-content: flex-end;
 }
 
 /* Subtasks */
