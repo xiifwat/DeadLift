@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <style>
+    :root {
+      --bg: oklch(16% 0.014 255);
+      --surface: oklch(20% 0.016 255);
+      --surface-hover: oklch(24% 0.018 255);
+      --border: oklch(32% 0.015 255);
+      --border-subtle: oklch(26% 0.014 255);
+      --text: oklch(94% 0.006 255);
+      --text-secondary: oklch(70% 0.012 255);
+      --text-tertiary: oklch(50% 0.012 255);
+      --red: oklch(66% 0.19 25);
+      --yellow: oklch(80% 0.15 95);
+      --green: oklch(72% 0.14 150);
+      --neutral: oklch(45% 0.01 255);
+      --font-display: 'Space Grotesk', system-ui, sans-serif;
+      --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: var(--accent, oklch(78% 0.14 75)); }
+    a:hover { opacity: 0.85; }
+    ::placeholder { color: var(--text-tertiary); }
+    .icon-btn { background: none; border: none; padding: 7px; border-radius: 8px; cursor: pointer; display: flex; }
+    .icon-btn:hover { background: var(--surface-hover); }
+  </style>
+</helmet>
+
+<div style="--accent: {{accent}}; width: 960px; min-height: 1260px; background: var(--bg); font-family: var(--font-body); color: var(--text); padding: 40px 48px 64px; display: flex; flex-direction: column; gap: 24px;">
+
+  <!-- Header -->
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect x="2" y="12" width="24" height="4" rx="1.5" stroke="var(--accent)" stroke-width="2"/>
+        <rect x="5" y="7" width="4" height="14" rx="1" fill="var(--accent)"/>
+        <rect x="19" y="7" width="4" height="14" rx="1" fill="var(--accent)"/>
+        <rect x="1" y="9" width="2.5" height="10" rx="1" fill="var(--accent)"/>
+        <rect x="24.5" y="9" width="2.5" height="10" rx="1" fill="var(--accent)"/>
+      </svg>
+      <span style="font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -0.01em;">Deadlift</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <button class="icon-btn" title="Search &amp; filter" style="background: {{searchBg}};">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{searchColor}}" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+
+      <div style="width: 1px; height: 22px; background: var(--border); margin: 0 6px;"></div>
+
+      <!-- Avatar: real Google profile photo when available, else initials (shown here) -->
+      <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--surface-hover); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--accent); flex-shrink: 0;">AK</div>
+      <span style="font-size: 14px; color: var(--text-secondary);">Amal Karim</span>
+      <button class="icon-btn" title="Sign out">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Search + filters panel: hidden until the search icon is clicked -->
+  <sc-if value="{{searchOpen}}" hint-placeholder-val="{{true}}">
+    <div style="display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px;">
+      <div style="display: flex; align-items: center; gap: 10px; background: var(--surface-hover); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 10px 14px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span style="color: var(--text-tertiary); font-size: 14px;">Search tasks…</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <span style="font-size: 12px; color: var(--text-tertiary); margin-right: 4px;">FILTER</span>
+        <span style="font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--accent); background: color-mix(in oklch, var(--accent) 18%, transparent); color: var(--accent); font-weight: 500;">Work</span>
+        <span style="font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-secondary);">Client</span>
+        <span style="font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-secondary);">Personal</span>
+        <span style="font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-secondary);">Urgent</span>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- Add task trigger -->
+  <div style="display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 18px; cursor: text;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <span style="color: var(--text-tertiary); font-size: 15px; flex-grow: 1;">Add a task — title, deadline, priority…</span>
+    <div style="display: flex; gap: 8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><path d="M12 2l2.9 6.6L22 9.3l-5 4.9 1.2 7.1L12 17.9 5.8 21.3 7 14.2 2 9.3l7.1-.7z"/></svg>
+    </div>
+  </div>
+
+  <!-- Pending task list -->
+  <div style="display: flex; flex-direction: column; gap: 14px;">
+
+    <!-- Card 1: pinned + overdue -->
+    <div style="display: flex; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px color-mix(in oklch, var(--accent) 35%, transparent);">
+      <div style="width: 4px; background: var(--red); flex-shrink: 0;"></div>
+      <div style="flex-grow: 1; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--text-tertiary); flex-shrink: 0;"></div>
+          <span style="font-size: 16px; font-weight: 600; flex-grow: 1;">Renew client contract — Meathouse</span>
+          <span style="font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 6px; background: color-mix(in oklch, var(--accent) 22%, transparent); color: var(--accent);">P9</span>
+          <span style="font-size: 12px; font-weight: 600; color: var(--red); background: color-mix(in oklch, var(--red) 16%, transparent); padding: 3px 9px; border-radius: 6px;">Overdue · Sep 8</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" title="Pinned"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>
+        </div>
+        <p style="margin: 0; padding-left: 30px; font-size: 14px; color: var(--text-secondary); line-height: 1.5;">Send updated terms and get signature before renewal window closes.</p>
+        <div style="display: flex; gap: 6px; padding-left: 30px;">
+          <span style="font-size: 11px; padding: 3px 9px; border-radius: 999px; background: var(--surface-hover); color: var(--text-secondary); border: 1px solid var(--border);">work</span>
+          <span style="font-size: 11px; padding: 3px 9px; border-radius: 999px; background: var(--surface-hover); color: var(--text-secondary); border: 1px solid var(--border);">client</span>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 4px;">
+          <button class="icon-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </button>
+          <button class="icon-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: subtasks expanded, due this week -->
+    <div style="display: flex; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden;">
+      <div style="width: 4px; background: var(--yellow); flex-shrink: 0;"></div>
+      <div style="flex-grow: 1; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--text-tertiary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); opacity: 0.5;"></div>
+          </div>
+          <span style="font-size: 16px; font-weight: 600; flex-grow: 1;">Launch onboarding email sequence</span>
+          <span style="font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 6px; background: var(--surface-hover); color: var(--text-secondary);">P6</span>
+          <span style="font-size: 12px; font-weight: 600; color: var(--yellow); background: color-mix(in oklch, var(--yellow) 14%, transparent); padding: 3px 9px; border-radius: 6px;">Due Sep 12</span>
+        </div>
+
+        <div style="padding-left: 30px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 12px; color: var(--text-tertiary);">2 / 4 subtasks</span>
+            <div style="flex-grow: 1; max-width: 160px; height: 4px; border-radius: 999px; background: var(--border-subtle); overflow: hidden;">
+              <div style="width: 50%; height: 100%; background: var(--yellow);"></div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--text-tertiary)"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></svg>
+              <div style="width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--yellow); background: var(--yellow); display: flex; align-items: center; justify-content: center;">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span style="font-size: 13px; color: var(--text-tertiary); text-decoration: line-through;">Draft welcome email copy</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--text-tertiary)"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></svg>
+              <div style="width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--yellow); background: var(--yellow); display: flex; align-items: center; justify-content: center;">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <span style="font-size: 13px; color: var(--text-tertiary); text-decoration: line-through;">Set up automation trigger</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--text-tertiary)"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></svg>
+              <div style="width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border);"></div>
+              <span style="font-size: 13px; color: var(--text);">Review with design</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--text-tertiary)"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></svg>
+              <div style="width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--border);"></div>
+              <span style="font-size: 13px; color: var(--text);">Schedule send</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 4px;">
+          <button class="icon-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </button>
+          <button class="icon-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: due later, green -->
+    <div style="display: flex; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden;">
+      <div style="width: 4px; background: var(--green); flex-shrink: 0;"></div>
+      <div style="flex-grow: 1; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--text-tertiary); flex-shrink: 0;"></div>
+          <span style="font-size: 16px; font-weight: 600; flex-grow: 1;">Plan Q4 roadmap review</span>
+          <span style="font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 6px; background: var(--surface-hover); color: var(--text-secondary);">P4</span>
+          <span style="font-size: 12px; font-weight: 600; color: var(--green); background: color-mix(in oklch, var(--green) 14%, transparent); padding: 3px 9px; border-radius: 6px;">Due Oct 3</span>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 4px;">
+          <button class="icon-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          </button>
+          <button class="icon-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Completed section: collapsible, separate from pending -->
+  <div style="display: flex; flex-direction: column; gap: 12px; border-top: 1px solid var(--border-subtle); padding-top: 18px;">
+    <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2.5" style="transform: {{chevronRotation}};"><polyline points="9 18 15 12 9 6"/></svg>
+      <span style="font-size: 13px; font-weight: 600; color: var(--text-tertiary); letter-spacing: 0.02em; text-transform: uppercase;">Completed · 1</span>
+    </div>
+
+    <sc-if value="{{completedOpen}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; background: var(--surface); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; opacity: 0.55;">
+        <div style="width: 4px; background: var(--neutral); flex-shrink: 0;"></div>
+        <div style="flex-grow: 1; padding: 14px 18px; display: flex; align-items: center; gap: 10px;">
+          <div style="width: 20px; height: 20px; border-radius: 50%; background: var(--text-tertiary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--bg)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span style="font-size: 15px; font-weight: 600; flex-grow: 1; text-decoration: line-through; color: var(--text-secondary);">Invoice August retainer</span>
+          <span style="font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 6px; background: var(--surface-hover); color: var(--text-tertiary);">P3</span>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "accent": {"editor":"color","default":"oklch(78% 0.14 75)","options":["oklch(78% 0.14 75)","oklch(72% 0.15 200)","oklch(74% 0.16 300)","oklch(70% 0.18 25)"]},
+  "searchOpen": {"editor":"boolean","default":true,"section":"Preview states"},
+  "completedOpen": {"editor":"boolean","default":true,"section":"Preview states"}
+}'>
+class Component extends DCLogic {
+  renderVals() {
+    const accent = this.props.accent ?? 'oklch(78% 0.14 75)';
+    const searchOpen = this.props.searchOpen ?? true;
+    const completedOpen = this.props.completedOpen ?? true;
+    return {
+      accent,
+      searchOpen,
+      completedOpen,
+      searchBg: searchOpen ? 'color-mix(in oklch, ' + accent + ' 16%, transparent)' : 'transparent',
+      searchColor: searchOpen ? accent : 'var(--text-tertiary)',
+      chevronRotation: completedOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+    };
+  }
+}
+</script>
+</body>
+</html>

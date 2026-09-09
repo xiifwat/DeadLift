@@ -50,12 +50,14 @@ Status legend: `TODO` `IN PROGRESS` `DONE`
 - **US-4.5** Dark mode. `TODO` (not in Sprint 3)
 
 ## Epic 5: Professional UI + PWA
-- **US-5.1** As a user, the app looks like a polished product, not a functional prototype. `TODO`
+- **US-5.1** As a user, the app looks like a polished product, not a functional prototype. `IN PROGRESS`
   - AC: Consistent color/type/spacing system, applied across all existing screens (sign-in, task list, forms).
-  - AC: Mockup reviewed and signed off before implementation.
-- **US-5.2** As a user, I can install the app on desktop or mobile and open it standalone (PWA). `TODO`
+  - AC: Mockup reviewed and signed off before implementation. — signed off, see mockup link in session history.
+  - Built: oklch dark palette, Space Grotesk/IBM Plex Sans, icon-based actions, header search toggle, pending/completed split (per UI feedback round). Sign-in screen visually verified; rest needs user check post-login.
+- **US-5.2** As a user, I can install the app on desktop or mobile and open it standalone (PWA). `IN PROGRESS`
   - AC: Manifest + icons + service worker via `vite-plugin-pwa`.
   - AC: Installable from Chrome (desktop + Android) and addable to home screen on iOS Safari.
+  - Built: manifest + 4 icon sizes (`scripts/make-icons.mjs` generates them from the barbell mark) + generateSW service worker, no runtimeCaching for Firebase (stays network-only). Manifest/sw.js/icons verified reachable and well-formed; SW *registration* couldn't be verified in my sandboxed preview pane (nested-iframe limitation, not app-specific) — needs a real Chrome tab or device to confirm install prompt/add-to-home-screen.
 
 ## Definition of Ready (DoR)
 - Story has clear acceptance criteria

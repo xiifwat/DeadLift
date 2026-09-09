@@ -26,7 +26,10 @@ function SubtaskRow({ subtask, onToggle }) {
   return (
     <li ref={setNodeRef} style={style} className={subtask.done ? 'done' : ''}>
       <span className="drag-handle" {...attributes} {...listeners} aria-label="Drag to reorder">
-        ⠿
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="5" cy="5" r="2" /><circle cx="12" cy="5" r="2" /><circle cx="19" cy="5" r="2" />
+          <circle cx="5" cy="19" r="2" /><circle cx="12" cy="19" r="2" /><circle cx="19" cy="19" r="2" />
+        </svg>
       </span>
       <label>
         <input type="checkbox" checked={subtask.done} onChange={() => onToggle(subtask.id)} />

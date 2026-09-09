@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <style>
+    :root {
+      --bg: oklch(16% 0.014 255);
+      --surface: oklch(20% 0.016 255);
+      --border: oklch(32% 0.015 255);
+      --border-subtle: oklch(26% 0.014 255);
+      --text: oklch(94% 0.006 255);
+      --text-secondary: oklch(70% 0.012 255);
+      --text-tertiary: oklch(50% 0.012 255);
+      --accent: oklch(78% 0.14 75);
+      --font-display: 'Space Grotesk', system-ui, sans-serif;
+      --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+  </style>
+</helmet>
+
+<div style="width: 640px; height: 800px; background:
+  radial-gradient(circle at 50% 32%, color-mix(in oklch, var(--accent) 10%, var(--bg)) 0%, var(--bg) 55%);
+  font-family: var(--font-body); color: var(--text); display: flex; align-items: center; justify-content: center;">
+
+  <div style="width: 400px; display: flex; flex-direction: column; align-items: center; gap: 28px;">
+
+    <svg width="52" height="52" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="12" width="24" height="4" rx="1.5" stroke="var(--accent)" stroke-width="2"/>
+      <rect x="5" y="7" width="4" height="14" rx="1" fill="var(--accent)"/>
+      <rect x="19" y="7" width="4" height="14" rx="1" fill="var(--accent)"/>
+      <rect x="1" y="9" width="2.5" height="10" rx="1" fill="var(--accent)"/>
+      <rect x="24.5" y="9" width="2.5" height="10" rx="1" fill="var(--accent)"/>
+    </svg>
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+      <span style="font-family: var(--font-display); font-weight: 700; font-size: 34px; letter-spacing: -0.02em;">Deadlift</span>
+      <span style="font-size: 15px; color: var(--text-secondary); text-align: center;">Tasks ranked by what matters most —<br/>priority and how close the deadline is.</span>
+    </div>
+
+    <button style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 13px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: var(--font-body); font-size: 15px; font-weight: 500; cursor: pointer;">
+      <svg width="18" height="18" viewBox="0 0 18 18">
+        <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62z"/>
+        <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.83.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.96v2.33A9 9 0 0 0 9 18z"/>
+        <path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 0 1 3.67 9c0-.59.1-1.17.28-1.7V4.97H.96A9 9 0 0 0 0 9c0 1.45.35 2.83.96 4.03z"/>
+        <path fill="#EA4335" d="M9 3.58c1.32 0 2.51.46 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.97L3.95 7.3C4.66 5.17 6.65 3.58 9 3.58z"/>
+      </svg>
+      Sign in with Google
+    </button>
+
+    <span style="font-size: 12px; color: var(--text-tertiary); text-align: center;">Your tasks stay private to your account.</span>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

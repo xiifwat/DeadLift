@@ -19,6 +19,7 @@ function matchesTags(task, selectedTags) {
 
 export default function TaskList({ tasks, uid, allTags, onEdit, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin, searchQuery, selectedTags }) {
   const [undo, setUndo] = useState(null) // { taskId, title, timeoutId }
+  const [completedOpen, setCompletedOpen] = useState(true)
   const [, setTick] = useState(0)
 
   useEffect(() => {
@@ -26,12 +27,13 @@ export default function TaskList({ tasks, uid, allTags, onEdit, onToggleSubtask,
     return () => clearInterval(id)
   }, [])
 
-  const visibleTasks = sortByGrossPriority(
-    tasks
-      .filter((t) => !t.deletedAt)
-      .filter((t) => matchesSearch(t, searchQuery))
-      .filter((t) => matchesTags(t, selectedTags)),
-  )
+  const filtered = tasks
+    .filter((t) => !t.deletedAt)
+    .filter((t) => matchesSearch(t, searchQuery))
+    .filter((t) => matchesTags(t, selectedTags))
+
+  const pending = sortByGrossPriority(filtered.filter((t) => !t.completed))
+  const completed = sortByGrossPriority(filtered.filter((t) => t.completed))
 
   async function handleDelete(taskId) {
     const task = tasks.find((t) => t.id === taskId)
@@ -48,7 +50,18 @@ export default function TaskList({ tasks, uid, allTags, onEdit, onToggleSubtask,
     setUndo(null)
   }
 
-  if (visibleTasks.length === 0 && !undo) {
+  const itemProps = {
+    uid,
+    allTags,
+    onEdit,
+    onDelete: handleDelete,
+    onToggleSubtask,
+    onReorderSubtasks,
+    onToggleCompleted,
+    onTogglePin,
+  }
+
+  if (pending.length === 0 && completed.length === 0 && !undo) {
     const hasAnyTasks = tasks.some((t) => !t.deletedAt)
     return (
       <p className="empty-state">
@@ -65,21 +78,39 @@ export default function TaskList({ tasks, uid, allTags, onEdit, onToggleSubtask,
           <button type="button" onClick={handleUndo}>Undo</button>
         </div>
       )}
-      <ul className="task-list">
-        {visibleTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            allTags={allTags}
-            onEdit={onEdit}
-            onDelete={handleDelete}
-            onToggleSubtask={onToggleSubtask}
-            onReorderSubtasks={onReorderSubtasks}
-            onToggleCompleted={onToggleCompleted}
-            onTogglePin={onTogglePin}
-          />
-        ))}
-      </ul>
+
+      {pending.length > 0 && (
+        <ul className="task-list">
+          {pending.map((task) => (
+            <TaskItem key={task.id} task={task} {...itemProps} />
+          ))}
+        </ul>
+      )}
+
+      {completed.length > 0 && (
+        <div className="completed-section">
+          <button
+            type="button"
+            className={`completed-toggle${completedOpen ? ' open' : ''}`}
+            onClick={() => setCompletedOpen((v) => !v)}
+            aria-expanded={completedOpen}
+          >
+            <span className="chevron">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </span>
+            <span className="completed-toggle-label">Completed · {completed.length}</span>
+          </button>
+          {completedOpen && (
+            <ul className="task-list">
+              {completed.map((task) => (
+                <TaskItem key={task.id} task={task} {...itemProps} />
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
     </>
   )
 }
