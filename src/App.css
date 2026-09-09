@@ -454,6 +454,38 @@ button.tag-chip.filter.active {
   flex: 1;
 }
 
+.chip-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.7;
+  padding: 0;
+  line-height: 1;
+  font-size: 15px;
+}
+
+.chip-remove:hover {
+  opacity: 1;
+  color: var(--red);
+}
+
+.add-subtask-btn {
+  align-self: flex-start;
+  background: none;
+  border: 1px dashed var(--border-dashed);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.add-subtask-btn:hover {
+  background: var(--surface-active);
+  color: var(--text);
+}
+
 /* Task rows */
 .task-list {
   list-style: none;

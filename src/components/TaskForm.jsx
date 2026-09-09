@@ -115,7 +115,7 @@ export default function TaskForm({ onSubmit, onCancel, initialTask, allTags = []
             {tags.map((tag) => (
               <span className="tag-chip removable" key={tag}>
                 {tag}
-                <button type="button" onClick={() => removeTag(tag)} aria-label={`Remove tag ${tag}`}>×</button>
+                <button type="button" className="chip-remove" onClick={() => removeTag(tag)} aria-label={`Remove tag ${tag}`}>×</button>
               </span>
             ))}
           </div>
@@ -150,12 +150,16 @@ export default function TaskForm({ onSubmit, onCancel, initialTask, allTags = []
               value={s.title}
               onChange={(e) => updateSubtask(s.key, e.target.value)}
             />
-            <button type="button" onClick={() => removeSubtask(s.key)} aria-label="Remove subtask">
+            <button type="button" className="chip-remove" onClick={() => removeSubtask(s.key)} aria-label="Remove subtask">
               ×
             </button>
           </div>
         ))}
-        <button type="button" onClick={() => setSubtasks((prev) => [...prev, emptySubtask()])}>
+        <button
+          type="button"
+          className="add-subtask-btn"
+          onClick={() => setSubtasks((prev) => [...prev, emptySubtask()])}
+        >
           + Add subtask
         </button>
       </div>
@@ -163,7 +167,7 @@ export default function TaskForm({ onSubmit, onCancel, initialTask, allTags = []
       {error && <p className="form-error">{error}</p>}
       <div className="task-form-actions">
         <button type="submit" className="primary">{isEdit ? 'Save changes' : 'Add task'}</button>
-        {isEdit && <button type="button" onClick={onCancel}>Cancel</button>}
+        {onCancel && <button type="button" onClick={onCancel}>Cancel</button>}
       </div>
     </form>
   )
