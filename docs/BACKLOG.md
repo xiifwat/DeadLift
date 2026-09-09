@@ -14,6 +14,7 @@ Status legend: `TODO` `IN PROGRESS` `DONE`
   - AC: Priority (1-10) is set only on the parent task — subtasks have no priority field of their own.
   - AC: Parent task can have zero or more subtasks (title only, no separate end date/priority).
   - AC: Subtasks can be added/removed/checked off independently after creation.
+  - AC: Subtasks can be reordered via drag-and-drop; new order persists (array order in the Firestore doc — see ADR-0001).
 - **US-2.2** As a user, I can view my task list, with each task's subtasks and completion progress (e.g. 2/5 done). `TODO`
 - **US-2.3** As a user, I can edit an existing task (parent fields and its subtasks). `TODO`
 - **US-2.4** As a user, I can delete a task (soft delete + undo toast) or an individual subtask. `TODO`

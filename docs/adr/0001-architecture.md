@@ -25,6 +25,10 @@ are per-user. Small team (solo + AI pairing), want minimal ops overhead.
   `completed` is still stored (not computed at read time) so it can be queried/filtered
   directly, but it's only ever written by the subtask-completion logic when the task has
   subtasks — never set directly by the user in that case.
+
+  Subtask order is the array's own order — no separate `order`/`index` field. Drag-reorder
+  writes the whole `subtasks` array back in its new order on drop (small array, cheap
+  single-field update, avoids index-management bugs a numeric order field would add).
 - **Hosting**: Firebase Hosting.
 - **Gross priority**: computed client-side at render time from stored `taskPriority` +
   `endDate`, not persisted as a field — avoids staleness, no scheduled recompute job needed
