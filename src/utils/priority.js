@@ -19,12 +19,20 @@ export function hoursRemaining(endDate, now = new Date()) {
   return (d.getTime() - now.getTime()) / HOUR_MS
 }
 
-/** 2 (max) once overdue, decaying from ~2 (due now) down to ~1 (due far out). */
+const URGENCY_MAX = 10 // multiplier when overdue/due right now
+const URGENCY_MIN = 0.5 // floor for far-out tasks — priority still orders them
+const HALF_LIFE_HOURS = 18 // urgency roughly halves every 18h further out
+
+/**
+ * Exponential decay: 10x when due now/overdue, halving about every 18h out,
+ * bottoming out at 0.5x. Steep on purpose — a task due today should usually
+ * outrank a much-higher-priority task due in a few days (see ADR-0002).
+ */
 export function urgencyMultiplier(endDate, now = new Date()) {
   const h = hoursRemaining(endDate, now)
   if (!Number.isFinite(h)) return 1
-  if (h <= 0) return 2
-  return clamp(1 + 1 / (1 + h / 24), 1, 2)
+  if (h <= 0) return URGENCY_MAX
+  return clamp(URGENCY_MAX * Math.pow(2, -h / HALF_LIFE_HOURS), URGENCY_MIN, URGENCY_MAX)
 }
 
 export function grossPriority(task, now = new Date()) {
