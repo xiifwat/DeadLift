@@ -95,6 +95,11 @@ export async function toggleTaskCompleted(uid, task) {
   return updateDoc(taskDoc(uid, task.id), { completed: !task.completed })
 }
 
+/** Manual override (US-3.3): pinned tasks sort above gross-priority ranking. */
+export async function togglePin(uid, task) {
+  return updateDoc(taskDoc(uid, task.id), { pinned: !task.pinned })
+}
+
 export async function softDeleteTask(uid, taskId) {
   return updateDoc(taskDoc(uid, taskId), { deletedAt: serverTimestamp() })
 }

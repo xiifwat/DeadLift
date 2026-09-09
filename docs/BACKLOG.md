@@ -27,10 +27,13 @@ Status legend: `TODO` `IN PROGRESS` `DONE`
   - Verified by user 2026-09-09.
 
 ## Epic 3: Gross Priority & Sorting
-- **US-3.1** As a user, my tasks are automatically ranked by gross priority (task priority + urgency from deadline). `TODO`
+- **US-3.1** As a user, my tasks are automatically ranked by gross priority (task priority + urgency from deadline). `IN PROGRESS`
   - AC: Formula documented in ADR-0002. Recomputed at render time, not stored stale.
-- **US-3.2** As a user, I see a visual urgency indicator (color) per task. `TODO`
-- **US-3.3** As a user, I can manually pin a task to override gross priority ranking. `TODO`
+  - Built: `src/utils/priority.js` (grossPriority, sortByGrossPriority). List re-sorts on every Firestore update, plus a 60s idle tick so ranking doesn't go stale on an open tab. Needs user check.
+- **US-3.2** As a user, I see a visual urgency indicator (color) per task. `IN PROGRESS`
+  - Built: left border color band — red (overdue/today), yellow (this week), green (later), grey (no date). `urgencyLevel()` in priority.js.
+- **US-3.3** As a user, I can manually pin a task to override gross priority ranking. `IN PROGRESS`
+  - Built: pin button (📍/📌) per task, pinned tasks always sort first regardless of gross priority.
 
 ## Epic 4: Usability enhancements (post-MVP)
 - **US-4.1** Tags/categories + filter. `TODO`

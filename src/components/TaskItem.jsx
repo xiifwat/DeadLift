@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import TaskForm from './TaskForm'
 import SubtaskList from './SubtaskList'
+import { urgencyLevel } from '../utils/priority'
 
 function formatDate(endDate) {
   if (!endDate) return '—'
@@ -8,10 +9,11 @@ function formatDate(endDate) {
   return d.toLocaleDateString()
 }
 
-export default function TaskItem({ task, onEdit, onDelete, onToggleSubtask, onReorderSubtasks, onToggleCompleted }) {
+export default function TaskItem({ task, onEdit, onDelete, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin }) {
   const [editing, setEditing] = useState(false)
   const hasSubtasks = task.subtasks?.length > 0
   const doneCount = task.subtasks?.filter((s) => s.done).length ?? 0
+  const urgency = urgencyLevel(task.endDate)
 
   if (editing) {
     return (
@@ -29,8 +31,17 @@ export default function TaskItem({ task, onEdit, onDelete, onToggleSubtask, onRe
   }
 
   return (
-    <li className={`task-item${task.completed ? ' completed' : ''}`}>
+    <li className={`task-item urgency-${urgency}${task.completed ? ' completed' : ''}${task.pinned ? ' pinned' : ''}`}>
       <div className="task-item-main">
+        <button
+          type="button"
+          className="pin-btn"
+          onClick={() => onTogglePin(task)}
+          aria-pressed={task.pinned}
+          title={task.pinned ? 'Unpin' : 'Pin to top'}
+        >
+          {task.pinned ? '📌' : '📍'}
+        </button>
         {hasSubtasks ? (
           <span
             className="task-complete-dot"

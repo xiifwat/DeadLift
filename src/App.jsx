@@ -7,6 +7,7 @@ import {
   toggleSubtask,
   reorderSubtasks,
   toggleTaskCompleted,
+  togglePin,
 } from './lib/tasks'
 import SignIn from './components/SignIn'
 import TaskForm from './components/TaskForm'
@@ -43,6 +44,7 @@ function App() {
           onToggleSubtask={(task, subtaskId) => toggleSubtask(user.uid, task, subtaskId)}
           onReorderSubtasks={(taskId, subtasks) => reorderSubtasks(user.uid, taskId, subtasks)}
           onToggleCompleted={(task) => toggleTaskCompleted(user.uid, task)}
+          onTogglePin={(task) => togglePin(user.uid, task)}
         />
       </main>
     </div>

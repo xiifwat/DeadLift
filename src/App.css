@@ -99,6 +99,29 @@ button.primary {
   text-decoration: line-through;
 }
 
+.task-item.pinned {
+  border-color: #d4af37;
+}
+
+.task-item.urgency-overdue { border-left: 4px solid #e5484d; }
+.task-item.urgency-today { border-left: 4px solid #e5484d; }
+.task-item.urgency-week { border-left: 4px solid #d4a72c; }
+.task-item.urgency-later { border-left: 4px solid #2f9e44; }
+.task-item.urgency-none { border-left: 4px solid #3a3a3a; }
+
+.pin-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  opacity: 0.6;
+}
+
+.pin-btn[aria-pressed="true"] {
+  opacity: 1;
+}
+
 .task-item-main {
   display: flex;
   align-items: center;
