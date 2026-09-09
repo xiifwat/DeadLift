@@ -1,9 +1,19 @@
+import { useEffect, useState } from 'react'
 import { useAuth } from './context/AuthContext'
+import { subscribeToTasks, addTask } from './lib/tasks'
 import SignIn from './components/SignIn'
+import TaskForm from './components/TaskForm'
+import TaskList from './components/TaskList'
 import './App.css'
 
 function App() {
   const { user, loading, signOut } = useAuth()
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    if (!user) return
+    return subscribeToTasks(user.uid, setTasks)
+  }, [user])
 
   if (loading) return null
   if (!user) return <SignIn />
@@ -18,7 +28,8 @@ function App() {
         </div>
       </header>
       <main>
-        <p>Task list goes here — next: US-2.1 (add task).</p>
+        <TaskForm onSubmit={(data) => addTask(user.uid, data)} />
+        <TaskList tasks={tasks} />
       </main>
     </div>
   )

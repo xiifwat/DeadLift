@@ -26,3 +26,125 @@
   gap: 0.75rem;
   text-align: center;
 }
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.task-form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.task-form-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.subtask-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.subtask-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.subtask-row input {
+  flex: 1;
+}
+
+.form-error {
+  color: #e5484d;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+button.primary {
+  align-self: flex-start;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-item {
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.task-item.completed {
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+
+.task-item-main {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.task-title {
+  font-weight: 600;
+  flex: 1;
+}
+
+.task-priority {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #3a3a3a;
+}
+
+.task-date {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.task-details {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.task-subtasks {
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid #3a3a3a;
+}
+
+.subtask-progress {
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.task-subtasks ul {
+  margin: 0.3rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.task-subtasks li.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.empty-state {
+  opacity: 0.65;
+  font-size: 0.9rem;
+}
