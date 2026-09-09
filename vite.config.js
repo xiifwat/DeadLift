@@ -14,8 +14,8 @@ export default defineConfig({
         name: 'Deadlift',
         short_name: 'Deadlift',
         description: 'Tasks ranked by priority and how close the deadline is.',
-        theme_color: '#11141b',
-        background_color: '#11141b',
+        theme_color: '#13100e',
+        background_color: '#13100e',
         display: 'standalone',
         start_url: '/',
         icons: [

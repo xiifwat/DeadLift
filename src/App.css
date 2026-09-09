@@ -1,19 +1,21 @@
 :root {
-  --bg: oklch(16% 0.014 255);
-  --surface: oklch(20% 0.016 255);
-  --surface-hover: oklch(24% 0.018 255);
-  --border: oklch(32% 0.015 255);
-  --border-subtle: oklch(26% 0.014 255);
-  --text: oklch(94% 0.006 255);
-  --text-secondary: oklch(70% 0.012 255);
-  --text-tertiary: oklch(50% 0.012 255);
-  --accent: oklch(78% 0.14 75);
-  --red: oklch(66% 0.19 25);
-  --yellow: oklch(80% 0.15 95);
-  --green: oklch(72% 0.14 150);
-  --neutral: oklch(45% 0.01 255);
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --bg: #13100e;
+  --surface: #1c1815;
+  --surface-hover: #221d1a;
+  --surface-active: #2b2620;
+  --border: #302925;
+  --border-subtle: #292320;
+  --border-dashed: #3a322c;
+  --text: #f0e9e1;
+  --text-secondary: #b9aca0;
+  --text-tertiary: #8b7f74;
+  --accent: #e3a857;
+  --accent-hover: #f0bd74;
+  --red: #e58d76;
+  --yellow: #e3c257;
+  --green: #8bbf82;
+  --neutral: #4a413b;
+  --font-body: 'Public Sans', system-ui, sans-serif;
 }
 
 * {
@@ -43,9 +45,9 @@ input[type='date'],
 input[type='number'],
 input[type='search'],
 textarea {
-  background: var(--surface-hover);
-  border: 1px solid var(--border-subtle);
-  border-radius: 8px;
+  background: var(--surface-active);
+  border: 1px solid var(--border);
+  border-radius: 7px;
   padding: 9px 12px;
   font-size: 14px;
 }
@@ -60,32 +62,77 @@ button {
   font-size: 14px;
 }
 
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--accent-hover);
+}
+
 .icon-btn {
   background: none;
   border: none;
-  padding: 7px;
-  border-radius: 8px;
+  padding: 6px;
+  border-radius: 6px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--text-tertiary);
 }
 
 .icon-btn:hover {
-  background: var(--surface-hover);
+  background: var(--surface-active);
 }
 
 .icon-btn.active {
   background: color-mix(in oklch, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+
+/* Reveal-on-hover action buttons within a .row */
+.row .icon-btn {
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.row:hover .icon-btn {
+  opacity: 1;
+}
+/* ...but keep the pin visible once pinned, and don't hide checkboxes */
+.row .icon-btn.pin-btn[aria-pressed='true'] {
+  opacity: 1;
 }
 
 .app {
-  max-width: 800px;
+  max-width: 880px;
   margin: 0 auto;
   padding: 40px 24px 64px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+}
+
+/* Unified panel */
+.app-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.panel-section {
+  border-top: 1px solid var(--border-subtle);
+  padding: 14px 28px;
+}
+
+.panel-section:first-child {
+  border-top: none;
+}
+
+.panel-section.tasklist-wrap {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* Header */
@@ -98,15 +145,15 @@ button {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .brand h1 {
-  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 22px;
+  font-size: 16px;
   letter-spacing: -0.01em;
   margin: 0;
+  color: var(--text);
 }
 
 .header-actions {
@@ -117,26 +164,24 @@ button {
 
 .header-divider {
   width: 1px;
-  height: 22px;
+  height: 20px;
   background: var(--border);
   margin: 0 6px;
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  background: var(--surface-hover);
-  border: 1px solid var(--border);
+  background: var(--surface-active);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--text-secondary);
 }
 
 .avatar img {
@@ -147,7 +192,7 @@ button {
 }
 
 .user-name {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-secondary);
 }
 
@@ -157,36 +202,35 @@ button {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: radial-gradient(
-    circle at 50% 32%,
-    color-mix(in oklch, var(--accent) 10%, var(--bg)) 0%,
-    var(--bg) 55%
-  );
+  background: var(--bg);
 }
 
 .signin-card {
   width: 100%;
   max-width: 360px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
-  padding: 0 24px;
+  gap: 24px;
+  padding: 56px 40px;
   text-align: center;
 }
 
 .signin-card h1 {
-  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 34px;
+  font-size: 24px;
   letter-spacing: -0.02em;
   margin: 0;
+  color: var(--text);
 }
 
 .signin-tagline {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .google-btn {
@@ -195,12 +239,12 @@ button {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 13px 20px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 500;
+  padding: 12px 18px;
+  background: var(--surface-active);
+  border: 1px solid var(--border-dashed);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -213,33 +257,44 @@ button {
   color: var(--text-tertiary);
 }
 
-/* Filters panel */
+/* Search + filters */
 .task-filters {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: var(--surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 14px 16px;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-active);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 7px 11px;
+  width: 240px;
 }
 
 .search-input {
+  border: none !important;
+  background: none !important;
+  padding: 0 !important;
   width: 100%;
+  font-size: 13px;
+}
+
+.search-input:focus {
+  outline: none !important;
 }
 
 .tag-filter-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
 }
 
 .filter-label {
   font-size: 12px;
+  font-weight: 600;
   color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   margin-right: 4px;
-  letter-spacing: 0.02em;
 }
 
 /* Add task trigger / form */
@@ -247,10 +302,18 @@ button {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 16px 18px;
-  background: var(--surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
+}
+
+.task-form.trigger {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  border: 1px dashed var(--border-dashed);
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: text;
+  color: var(--text-tertiary);
+  font-size: 14px;
 }
 
 .task-form-row {
@@ -274,7 +337,7 @@ button {
 button.primary {
   align-self: flex-start;
   background: var(--accent);
-  color: oklch(20% 0.02 75);
+  color: var(--surface);
   border: none;
   border-radius: 8px;
   padding: 9px 16px;
@@ -283,7 +346,7 @@ button.primary {
 }
 
 button.primary:hover {
-  filter: brightness(1.05);
+  background: var(--accent-hover);
 }
 
 .task-form-actions button:not(.primary) {
@@ -301,7 +364,7 @@ button.primary:hover {
   margin: 0;
 }
 
-/* Tag editor */
+/* Tag editor (form) */
 .tag-editor {
   display: flex;
   flex-direction: column;
@@ -323,10 +386,10 @@ button.primary:hover {
 
 .tag-chip {
   font-size: 11px;
-  padding: 3px 9px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: var(--surface-hover);
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--surface-active);
   color: var(--text-secondary);
 }
 
@@ -334,6 +397,7 @@ button.primary:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
+  border: 1px solid var(--border);
 }
 
 .tag-chip.removable button {
@@ -349,6 +413,7 @@ button.primary:hover {
 button.tag-chip.pick {
   cursor: pointer;
   opacity: 0.8;
+  border: 1px solid var(--border);
 }
 
 button.tag-chip.pick:hover {
@@ -359,13 +424,17 @@ button.tag-chip.filter {
   cursor: pointer;
   font-size: 13px;
   padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-dashed);
+  background: none;
+  color: var(--text-secondary);
 }
 
 button.tag-chip.filter.active {
+  font-weight: 600;
+  background: var(--accent);
+  color: var(--surface);
   border-color: var(--accent);
-  background: color-mix(in oklch, var(--accent) 18%, transparent);
-  color: var(--accent);
-  font-weight: 500;
 }
 
 /* Subtask editor (form) */
@@ -385,30 +454,26 @@ button.tag-chip.filter.active {
   flex: 1;
 }
 
-/* Task list */
+/* Task rows */
 .task-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
 }
 
-.task-item {
+.task-item.row {
   display: flex;
-  background: var(--surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  overflow: hidden;
+  gap: 12px;
+  padding: 16px 28px;
+  border-top: 1px solid var(--border-subtle);
 }
 
-.task-item.pinned {
-  box-shadow: 0 0 0 1px color-mix(in oklch, var(--accent) 35%, transparent);
+.task-list .task-item.row:first-child {
+  border-top: none;
 }
 
 .task-item.completed {
-  opacity: 0.55;
+  opacity: 0.6;
 }
 
 .task-item.completed .task-title {
@@ -416,8 +481,10 @@ button.tag-chip.filter.active {
 }
 
 .urgency-band {
-  width: 4px;
+  width: 3px;
+  border-radius: 3px;
   flex-shrink: 0;
+  align-self: stretch;
 }
 
 .urgency-overdue .urgency-band,
@@ -434,64 +501,60 @@ button.tag-chip.filter.active {
   background: var(--neutral);
 }
 
-.task-item-body {
-  flex-grow: 1;
-  padding: 16px 18px;
+.task-checkbox-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.task-item-main {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .task-complete-dot {
   cursor: default;
-  color: var(--text-tertiary);
+  display: flex;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.task-item-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.task-item-main {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }
 
 .task-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  flex: 1;
-}
-
-.task-priority {
-  font-size: 12px;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 6px;
-  background: var(--surface-hover);
-  color: var(--text-secondary);
+  flex-grow: 1;
+  color: var(--text);
 }
 
 .task-date {
   font-size: 12px;
   font-weight: 600;
-  padding: 3px 9px;
-  border-radius: 6px;
   white-space: nowrap;
+  color: var(--text-secondary);
 }
 
 .urgency-overdue .task-date,
 .urgency-today .task-date {
   color: var(--red);
-  background: color-mix(in oklch, var(--red) 16%, transparent);
 }
 .urgency-week .task-date {
   color: var(--yellow);
-  background: color-mix(in oklch, var(--yellow) 14%, transparent);
 }
 .urgency-later .task-date {
   color: var(--green);
-  background: color-mix(in oklch, var(--green) 14%, transparent);
-}
-.urgency-none .task-date {
-  color: var(--text-tertiary);
-  background: var(--surface-hover);
 }
 
 .pin-btn {
@@ -509,56 +572,64 @@ button.tag-chip.filter.active {
 
 .task-details {
   margin: 0;
-  padding-left: 30px;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-secondary);
   line-height: 1.5;
 }
 
-.task-tags {
+.task-meta-row {
   display: flex;
+  align-items: center;
+  gap: 8px;
   flex-wrap: wrap;
-  gap: 6px;
-  padding-left: 30px;
+  margin-top: 2px;
+}
+
+.task-priority {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--surface-hover);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
 }
 
 .task-item-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 4px;
+  gap: 2px;
+  align-items: flex-start;
 }
 
 /* Subtasks */
 .task-subtasks {
-  padding-left: 30px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 
 .subtask-progress-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .subtask-progress {
   font-size: 12px;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 
 .subtask-progress-bar {
-  flex-grow: 1;
-  max-width: 160px;
+  width: 120px;
   height: 4px;
   border-radius: 999px;
-  background: var(--border-subtle);
+  background: var(--surface-active);
   overflow: hidden;
 }
 
 .subtask-progress-bar-fill {
   height: 100%;
-  background: var(--yellow);
+  background: var(--accent);
 }
 
 .subtask-checklist {
@@ -567,20 +638,21 @@ button.tag-chip.filter.active {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
 .subtask-checklist li {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
 }
 
 .subtask-checklist li label {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   font-size: 13px;
+  color: var(--text);
 }
 
 .subtask-checklist li.done label {
@@ -590,10 +662,16 @@ button.tag-chip.filter.active {
 
 .drag-handle {
   cursor: grab;
-  opacity: 0.5;
+  color: var(--text-tertiary);
   user-select: none;
   touch-action: none;
   display: flex;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+.subtask-checklist li:hover .drag-handle {
+  opacity: 1;
 }
 
 /* Completed section */
@@ -601,14 +679,12 @@ button.tag-chip.filter.active {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 18px;
 }
 
 .completed-toggle {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   cursor: pointer;
   background: none;
   border: none;
@@ -626,10 +702,14 @@ button.tag-chip.filter.active {
 }
 
 .completed-toggle-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.completed-section .task-list {
+  margin-top: 4px;
 }
 
 .undo-toast {
@@ -638,7 +718,7 @@ button.tag-chip.filter.active {
   justify-content: space-between;
   gap: 1rem;
   padding: 0.6rem 1rem;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.85rem;
   background: var(--surface);
@@ -647,4 +727,5 @@ button.tag-chip.filter.active {
 .empty-state {
   color: var(--text-tertiary);
   font-size: 0.9rem;
+  padding: 16px 28px;
 }

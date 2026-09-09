@@ -52,8 +52,9 @@ Status legend: `TODO` `IN PROGRESS` `DONE`
 ## Epic 5: Professional UI + PWA
 - **US-5.1** As a user, the app looks like a polished product, not a functional prototype. `IN PROGRESS`
   - AC: Consistent color/type/spacing system, applied across all existing screens (sign-in, task list, forms).
-  - AC: Mockup reviewed and signed off before implementation. — signed off, see mockup link in session history.
-  - Built: oklch dark palette, Space Grotesk/IBM Plex Sans, icon-based actions, header search toggle, pending/completed split (per UI feedback round). Sign-in screen visually verified; rest needs user check post-login.
+  - AC: Mockup reviewed and signed off before implementation. — signed off (v1, oklch cool palette); superseded by v2 below per user's own further iteration on claude.ai/design.
+  - Superseded 2026-09-09: user brought a v2 mockup (`mockup/_zip_extract/Deadlift.dc.html`, from a "Professional UI redesign.zip") — warm amber/brown palette, single Public Sans font, unified single-panel layout with divider rows instead of per-task cards, hover-reveal row actions. Folded back in: urgency color band (left strip + colored date text) and click-to-reveal search icon, both dropped in v2 but requested to keep.
+  - Built: full CSS token swap, `App.jsx`/`TaskItem.jsx`/`TaskFilters.jsx` restructured to the row-based single-panel layout, collapsible add-task trigger (new — matches v2's dashed trigger box). Sign-in screen visually verified; task-list/row view needs user check post-login (I can't sign in myself).
 - **US-5.2** As a user, I can install the app on desktop or mobile and open it standalone (PWA). `IN PROGRESS`
   - AC: Manifest + icons + service worker via `vite-plugin-pwa`.
   - AC: Installable from Chrome (desktop + Android) and addable to home screen on iOS Safari.

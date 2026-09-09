@@ -3,8 +3,8 @@
 import sharp from 'sharp'
 import { mkdirSync } from 'node:fs'
 
-const BG = '#11141b'
-const ACCENT = '#d9a656'
+const BG = '#13100e'
+const ACCENT = '#e3a857'
 
 mkdirSync('public/icons', { recursive: true })
 
@@ -18,11 +18,9 @@ function barbellSvg(size, pad = 0.12) {
 <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
   <rect width="${size}" height="${size}" fill="${BG}"/>
   <g transform="translate(${off},${off}) scale(${s})">
-    <rect x="2" y="12" width="24" height="4" rx="1.5" fill="none" stroke="${ACCENT}" stroke-width="2"/>
-    <rect x="5" y="7" width="4" height="14" rx="1" fill="${ACCENT}"/>
-    <rect x="19" y="7" width="4" height="14" rx="1" fill="${ACCENT}"/>
-    <rect x="1" y="9" width="2.5" height="10" rx="1" fill="${ACCENT}"/>
-    <rect x="24.5" y="9" width="2.5" height="10" rx="1" fill="${ACCENT}"/>
+    <rect x="2" y="12.5" width="24" height="3" rx="1.5" fill="${ACCENT}"/>
+    <rect x="5.5" y="8" width="3.5" height="12" rx="1" fill="${ACCENT}"/>
+    <rect x="19" y="8" width="3.5" height="12" rx="1" fill="${ACCENT}"/>
   </g>
 </svg>`
 }
