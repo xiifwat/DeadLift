@@ -18,6 +18,7 @@ export default function TaskForm({ onSubmit, onCancel, initialTask }) {
   const [details, setDetails] = useState(initialTask?.details ?? '')
   const [endDate, setEndDate] = useState(toDateInputValue(initialTask?.endDate))
   const [taskPriority, setTaskPriority] = useState(initialTask?.taskPriority ?? 5)
+  const [tagsInput, setTagsInput] = useState(initialTask?.tags?.join(', ') ?? '')
   const [subtasks, setSubtasks] = useState(
     () => initialTask?.subtasks?.map((s) => ({ key: s.id, ...s })) ?? [],
   )
@@ -45,6 +46,7 @@ export default function TaskForm({ onSubmit, onCancel, initialTask }) {
       details,
       endDate,
       taskPriority: priorityNum,
+      tags: tagsInput.split(','),
       subtasks: subtasks.map((s) => ({ id: s.id, title: s.title, done: s.done })),
     })
     if (!isEdit) {
@@ -52,6 +54,7 @@ export default function TaskForm({ onSubmit, onCancel, initialTask }) {
       setDetails('')
       setEndDate('')
       setTaskPriority(5)
+      setTagsInput('')
       setSubtasks([])
     }
   }
@@ -85,6 +88,13 @@ export default function TaskForm({ onSubmit, onCancel, initialTask }) {
           />
         </label>
       </div>
+
+      <input
+        type="text"
+        placeholder="Tags, comma-separated (e.g. work, urgent)"
+        value={tagsInput}
+        onChange={(e) => setTagsInput(e.target.value)}
+      />
 
       <div className="subtask-editor">
         <span>Subtasks</span>

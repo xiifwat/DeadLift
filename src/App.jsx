@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from './context/AuthContext'
 import {
   subscribeToTasks,
@@ -11,17 +11,33 @@ import {
 } from './lib/tasks'
 import SignIn from './components/SignIn'
 import TaskForm from './components/TaskForm'
+import TaskFilters from './components/TaskFilters'
 import TaskList from './components/TaskList'
 import './App.css'
 
 function App() {
   const { user, loading, signOut } = useAuth()
   const [tasks, setTasks] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedTags, setSelectedTags] = useState([])
 
   useEffect(() => {
     if (!user) return
     return subscribeToTasks(user.uid, setTasks)
   }, [user])
+
+  const allTags = useMemo(() => {
+    const set = new Set()
+    for (const t of tasks) {
+      if (t.deletedAt) continue
+      for (const tag of t.tags || []) set.add(tag)
+    }
+    return [...set].sort()
+  }, [tasks])
+
+  function toggleTag(tag) {
+    setSelectedTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]))
+  }
 
   if (loading) return null
   if (!user) return <SignIn />
@@ -37,9 +53,18 @@ function App() {
       </header>
       <main>
         <TaskForm onSubmit={(data) => addTask(user.uid, data)} />
+        <TaskFilters
+          allTags={allTags}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          selectedTags={selectedTags}
+          onToggleTag={toggleTag}
+        />
         <TaskList
           tasks={tasks}
           uid={user.uid}
+          searchQuery={searchQuery}
+          selectedTags={selectedTags}
           onEdit={(taskId, data) => editTask(user.uid, taskId, data)}
           onToggleSubtask={(task, subtaskId) => toggleSubtask(user.uid, task, subtaskId)}
           onReorderSubtasks={(taskId, subtasks) => reorderSubtasks(user.uid, taskId, subtasks)}

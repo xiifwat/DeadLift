@@ -42,14 +42,20 @@ function deriveCompleted(subtasks, manualCompleted) {
   return subtasks.length > 0 ? subtasks.every((s) => s.done) : !!manualCompleted
 }
 
+/** Free-text, user-defined, deduped, case-preserved but trimmed (US-4.1). */
+function buildTags(tags) {
+  return [...new Set((tags || []).map((t) => t.trim()).filter(Boolean))]
+}
+
 /** Priority lives only on the parent — subtasks carry title/done only (US-2.1). */
-export async function addTask(uid, { title, details, endDate, taskPriority, subtasks }) {
+export async function addTask(uid, { title, details, endDate, taskPriority, subtasks, tags }) {
   const finalSubtasks = buildSubtasks(subtasks)
   return addDoc(tasksRef(uid), {
     title: title.trim(),
     details: details?.trim() || '',
     endDate: endDate ? new Date(endDate) : null,
     taskPriority: Number(taskPriority),
+    tags: buildTags(tags),
     pinned: false,
     createdAt: serverTimestamp(),
     subtasks: finalSubtasks,
@@ -58,13 +64,14 @@ export async function addTask(uid, { title, details, endDate, taskPriority, subt
 }
 
 /** Full edit: parent fields + subtask set (add/remove/rename), used by US-2.3. */
-export async function editTask(uid, taskId, { title, details, endDate, taskPriority, subtasks }) {
+export async function editTask(uid, taskId, { title, details, endDate, taskPriority, subtasks, tags }) {
   const finalSubtasks = buildSubtasks(subtasks)
   return updateDoc(taskDoc(uid, taskId), {
     title: title.trim(),
     details: details?.trim() || '',
     endDate: endDate ? new Date(endDate) : null,
     taskPriority: Number(taskPriority),
+    tags: buildTags(tags),
     subtasks: finalSubtasks,
     completed: deriveCompleted(finalSubtasks, false),
   })

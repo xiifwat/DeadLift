@@ -17,9 +17,11 @@ Goal: list auto-sorts by gross priority, visually communicates urgency.
 Demo: add tasks w/ varying priority/deadlines, watch list reorder correctly.
 
 ## Sprint 3 — Usability enhancements
-Goal: pick subset of Epic 4 based on what's most valuable after using Sprint 1-2 build.
-- Candidates: tags/filter, search, dark mode, reminders
-Demo: TBD per selected stories.
+Goal: find tasks faster as the list grows.
+- US-4.1 (tags + filter)
+- US-4.2 (search)
+- Deferred: dark mode, reminders, recurring tasks — future sprint
+Demo: tag a few tasks, filter by tag, search by title/details, confirm both combine.
 
 ## Retro notes
 (filled in after each sprint)

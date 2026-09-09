@@ -36,11 +36,17 @@ Status legend: `TODO` `IN PROGRESS` `DONE`
   - Verified by user 2026-09-09.
 
 ## Epic 4: Usability enhancements (post-MVP)
-- **US-4.1** Tags/categories + filter. `TODO`
-- **US-4.2** Search. `TODO`
-- **US-4.3** Recurring tasks. `TODO`
-- **US-4.4** Deadline reminders/notifications. `TODO`
-- **US-4.5** Dark mode. `TODO`
+- **US-4.1** As a user, I can tag tasks and filter the list by tag. `IN PROGRESS`
+  - AC: Tags are free-text, user-defined (no preset list). A task can have zero or more.
+  - AC: Filter control lists every tag currently in use; selecting tags shows tasks matching any of them (OR); no selection = all tasks.
+  - Built: `tags` field (deduped, trimmed) on task doc; comma-separated input in `TaskForm`; chip toggle filter in `TaskFilters.jsx`. Needs user check.
+- **US-4.2** As a user, I can search tasks by title or details. `IN PROGRESS`
+  - AC: Case-insensitive substring match on title + details.
+  - AC: Search and tag filter combine (AND) — both narrow the same list.
+  - Built: search box in `TaskFilters.jsx`, filtering applied in `TaskList.jsx` before sort.
+- **US-4.3** Recurring tasks. `TODO` (not in Sprint 3)
+- **US-4.4** Deadline reminders/notifications. `TODO` (not in Sprint 3)
+- **US-4.5** Dark mode. `TODO` (not in Sprint 3)
 
 ## Definition of Ready (DoR)
 - Story has clear acceptance criteria

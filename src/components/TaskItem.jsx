@@ -64,6 +64,13 @@ export default function TaskItem({ task, onEdit, onDelete, onToggleSubtask, onRe
         <button type="button" onClick={() => onDelete(task.id)}>Delete</button>
       </div>
       {task.details && <p className="task-details">{task.details}</p>}
+      {task.tags?.length > 0 && (
+        <div className="task-tags">
+          {task.tags.map((tag) => (
+            <span className="tag-chip" key={tag}>{tag}</span>
+          ))}
+        </div>
+      )}
       {hasSubtasks && (
         <div className="task-subtasks">
           <span className="subtask-progress">{doneCount}/{task.subtasks.length} subtasks done</span>

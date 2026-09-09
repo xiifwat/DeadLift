@@ -6,7 +6,18 @@ import { sortByGrossPriority } from '../utils/priority'
 const UNDO_WINDOW_MS = 6000
 const RERANK_INTERVAL_MS = 60000 // re-sort periodically so urgency stays fresh while idle
 
-export default function TaskList({ tasks, uid, onEdit, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin }) {
+function matchesSearch(task, query) {
+  if (!query) return true
+  const q = query.toLowerCase()
+  return task.title.toLowerCase().includes(q) || task.details?.toLowerCase().includes(q)
+}
+
+function matchesTags(task, selectedTags) {
+  if (selectedTags.length === 0) return true
+  return selectedTags.some((tag) => task.tags?.includes(tag))
+}
+
+export default function TaskList({ tasks, uid, onEdit, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin, searchQuery, selectedTags }) {
   const [undo, setUndo] = useState(null) // { taskId, title, timeoutId }
   const [, setTick] = useState(0)
 
@@ -15,7 +26,12 @@ export default function TaskList({ tasks, uid, onEdit, onToggleSubtask, onReorde
     return () => clearInterval(id)
   }, [])
 
-  const visibleTasks = sortByGrossPriority(tasks.filter((t) => !t.deletedAt))
+  const visibleTasks = sortByGrossPriority(
+    tasks
+      .filter((t) => !t.deletedAt)
+      .filter((t) => matchesSearch(t, searchQuery))
+      .filter((t) => matchesTags(t, selectedTags)),
+  )
 
   async function handleDelete(taskId) {
     const task = tasks.find((t) => t.id === taskId)
@@ -33,7 +49,12 @@ export default function TaskList({ tasks, uid, onEdit, onToggleSubtask, onReorde
   }
 
   if (visibleTasks.length === 0 && !undo) {
-    return <p className="empty-state">No tasks yet — add one above.</p>
+    const hasAnyTasks = tasks.some((t) => !t.deletedAt)
+    return (
+      <p className="empty-state">
+        {hasAnyTasks ? 'No tasks match your search/filter.' : 'No tasks yet — add one above.'}
+      </p>
+    )
   }
 
   return (
