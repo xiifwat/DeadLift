@@ -3,12 +3,9 @@
 Status legend: `TODO` `IN PROGRESS` `DONE`
 
 ## Epic 1: Auth & Foundation
-- **US-1.1** As a user, I can sign in with Google so my tasks are private to me. `IN PROGRESS`
-  - AC: Clicking "Sign in with Google" opens OAuth popup, on success user lands on task list.
-  - AC: Signed-out users see only the sign-in screen, no task data.
-  - Wired: `src/lib/firebase.js`, `src/context/AuthContext.jsx`, `src/components/SignIn.jsx`. Firebase init + auth call verified error-free; full popup flow needs a real-browser click to confirm (can't complete OAuth on the user's behalf).
-- **US-1.2** As a user, I can sign out. `IN PROGRESS`
-  - Wired: sign-out button in `App.jsx` header, calls `signOut` from AuthContext.
+- **US-1.1** As a user, I can sign in with Google so my tasks are private to me. `DONE`
+  - Verified by user 2026-09-09: real-browser Google sign-in works end-to-end.
+- **US-1.2** As a user, I can sign out. `DONE`
 
 ## Epic 2: Core Task CRUD
 - **US-2.1** As a user, I can add a task with title, details, end date, and priority (1-10), and break it into subtasks. `TODO`
