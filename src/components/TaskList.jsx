@@ -19,7 +19,7 @@ function matchesTags(task, selectedTags) {
 
 export default function TaskList({ tasks, uid, allTags, onEdit, onToggleSubtask, onReorderSubtasks, onToggleCompleted, onTogglePin, searchQuery, selectedTags }) {
   const [undo, setUndo] = useState(null) // { taskId, title, timeoutId }
-  const [completedOpen, setCompletedOpen] = useState(true)
+  const [completedOpen, setCompletedOpen] = useState(false)
   const [, setTick] = useState(0)
 
   useEffect(() => {
